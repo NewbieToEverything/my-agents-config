@@ -18,7 +18,7 @@
 |---------|------|
 | `skills/` | 自定义全局 Skill 源文件目录。存放在此的自定义 skill 通过软链接注入 `~/.agents/skills/<name>/`（OpenCode、Codex、pi 均扫描） |
 | `AGENTS.md` | 全局指令文件，通过软链接分别供 OpenCode（`~/.config/opencode/AGENTS.md`）、Codex（`~/.codex/AGENTS.md`）与 pi（`~/.pi/agent/AGENTS.md`）加载 |
-| `opencode.json` | 全局配置文件（仅适用于 OpenCode），存放于 `~/.config/opencode/opencode.json`|
+| `opencode.json` | OpenCode 的本地全局配置，保存在 `~/.config/opencode/opencode.json`。可能含 API key，不纳入版本控制 |
 | `rules/` | 专项规则文件。OpenCode 通过 `opencode.json` 的 `instructions` 字段引入；Codex 和 pi 通过 `AGENTS.md`「按任务读取专项规则」一节按需读取 |
 
 软链接总览：
@@ -28,7 +28,6 @@
 | `~/.config/opencode/AGENTS.md` | `my-opencode-config/AGENTS.md` |
 | `~/.codex/AGENTS.md` | `my-opencode-config/AGENTS.md` |
 | `~/.pi/agent/AGENTS.md` | `my-opencode-config/AGENTS.md` |
-| `~/.config/opencode/opencode.json` | `my-opencode-config/opencode.json` |
 | `~/.config/opencode/rules` | `my-opencode-config/rules` |
 
 
@@ -47,13 +46,11 @@ cd ~/projects/my-opencode-config
 
 # 3. 创建符号链接（配置文件）
 rm -f ~/.config/opencode/AGENTS.md
-rm -f ~/.config/opencode/opencode.json
 rm -rf ~/.config/opencode/rules
 rm -f ~/.codex/AGENTS.md
 rm -f ~/.pi/agent/AGENTS.md
 
 ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.config/opencode/AGENTS.md
-ln -sf ~/projects/my-opencode-config/opencode.json ~/.config/opencode/opencode.json
 ln -sf ~/projects/my-opencode-config/rules ~/.config/opencode/rules
 ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.codex/AGENTS.md
 mkdir -p ~/.pi/agent
@@ -81,19 +78,16 @@ cp ~/.codex/AGENTS.md ~/.codex/AGENTS.md.backup
 mkdir -p ~/projects/my-opencode-config
 cd ~/projects/my-opencode-config
 cp ~/.config/opencode/AGENTS.md ./
-cp ~/.config/opencode/opencode.json ./
 [ -d ~/.config/opencode/rules ] && cp -r ~/.config/opencode/rules/ ./
 [ -d ~/projects/my-opencode-config/skills ] || mkdir -p skills
 
 # 3. 创建符号链接（配置文件）
 rm -f ~/.config/opencode/AGENTS.md
-rm -f ~/.config/opencode/opencode.json
 rm -rf ~/.config/opencode/rules
 rm -f ~/.codex/AGENTS.md
 rm -f ~/.pi/agent/AGENTS.md
 
 ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.config/opencode/AGENTS.md
-ln -sf ~/projects/my-opencode-config/opencode.json ~/.config/opencode/opencode.json
 ln -sf ~/projects/my-opencode-config/rules ~/.config/opencode/rules
 ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.codex/AGENTS.md
 mkdir -p ~/.pi/agent
