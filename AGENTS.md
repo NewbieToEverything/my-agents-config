@@ -15,7 +15,7 @@
 	- 禁止读取的隐藏配置文件：包括但不限于 `.env`、`.env.*`、`.gitconfig`、`.npmrc`、`~/.ssh/config`、`.bashrc`、`.bash_profile`，`.devcontainer/devcontainer.json`除外
 	- 用户隐私信息：包括但不限于用户名、密码、令牌、API 密钥、邮箱、SSH 私钥、会话 cookie、数据库连接串、JWT Secret、加密盐值、云服务 Access Key ID
 - 已安装程序可使用现有凭据完成已授权操作，但**禁止**把凭据内容返回给模型、输出或写入交付文件
-- 自定义全局 skill 的源文件必须放在 `~/projects/my-opencode-config/skills`；共享入口使用 `~/.agents/skills` 软链接，平台专用技能只接入对应平台
+- 自定义全局 skill 的源文件必须放在 `~/projects/my-agents-config/skills`；共享入口使用 `~/.agents/skills` 软链接，平台专用技能只接入对应平台
 - 使用已配置 RTK 的执行工具时，输出会被压缩；关键结果不完整时，用原始输出或退出码核实
 - 调研中，关键文献无法获取全文时，告知用户并提供 DOI 或可核实的标识/链接；不得仅凭摘要判断，也不得隐瞒该缺口。暂停依赖该全文的判断，其他独立调研可继续
 - 修改已有 Word、Excel、PPT 文档前，先另存一个工作副本，后续只修改该副本，已有副本时不随意创建新版本
@@ -29,8 +29,8 @@
 
 ## 按任务读取专项规则
 
-以下路径均以 `~/projects/my-opencode-config` 为基准；只读取当前任务需要的文件，相关操作前必须读取，不要求每次加载全部文件。
+以下路径均以 `~/projects/my-agents-config` 为基准；只读取当前任务需要的文件，相关操作前必须读取，不要求每次加载全部文件。
 
-- 执行 Git 提交或网络操作前：读取 `~/projects/my-opencode-config/rules/GIT_RULES.md`。
-- 创建、重写或修改 README 前：读取 `~/projects/my-opencode-config/rules/README_RULES.md`。
-- 网页获取、交互或 GitHub 网页/API 操作前：读取 `~/projects/my-opencode-config/rules/BROWSER_RULES.md`。
+- 执行 Git 提交或网络操作前：读取 `~/projects/my-agents-config/rules/GIT_RULES.md`。
+- 创建、重写或修改 README 前：读取 `~/projects/my-agents-config/rules/README_RULES.md`。
+- 网页获取、交互或 GitHub 网页/API 操作前：读取 `~/projects/my-agents-config/rules/BROWSER_RULES.md`。

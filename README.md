@@ -1,6 +1,6 @@
-# OpenCode 全局配置统一管理
+# my-agents-config：Agent 全局配置统一管理
 
-将 OpenCode 的配置文件集中到同一项目目录下管理，通过符号链接同步到 OpenCode、Codex 和 pi（派）的默认路径，实现一套配置，三个 Agent 共享。
+my-agents-config 集中管理 OpenCode、Codex 和 pi 共用的全局指令、skills 与专项规则，通过符号链接同步到各 Agent 的默认路径。OpenCode 的 `opencode.json` 留在本机，不纳入版本控制。
 
 三者的全局指令与 skill 扫描位置（均支持软链接）：
 
@@ -24,11 +24,11 @@
 软链接总览：
 | 目标路径 | 源路径 |
 |---------|--------|
-| `~/.agents/skills/<name>/` | `my-opencode-config/skills/<name>/` |
-| `~/.config/opencode/AGENTS.md` | `my-opencode-config/AGENTS.md` |
-| `~/.codex/AGENTS.md` | `my-opencode-config/AGENTS.md` |
-| `~/.pi/agent/AGENTS.md` | `my-opencode-config/AGENTS.md` |
-| `~/.config/opencode/rules` | `my-opencode-config/rules` |
+| `~/.agents/skills/<name>/` | `my-agents-config/skills/<name>/` |
+| `~/.config/opencode/AGENTS.md` | `my-agents-config/AGENTS.md` |
+| `~/.codex/AGENTS.md` | `my-agents-config/AGENTS.md` |
+| `~/.pi/agent/AGENTS.md` | `my-agents-config/AGENTS.md` |
+| `~/.config/opencode/rules` | `my-agents-config/rules` |
 
 
 ## 管理方式
@@ -38,11 +38,11 @@
 ```bash
 # 1. 创建项目目录
 cd ~/projects
-mkdir my-opencode-config
+mkdir my-agents-config
 
 # 2. 克隆仓库
-git clone git@github.com:<username>/my-opencode-config.git ~/projects/my-opencode-config
-cd ~/projects/my-opencode-config
+git clone git@github.com:<username>/my-agents-config.git ~/projects/my-agents-config
+cd ~/projects/my-agents-config
 
 # 3. 创建符号链接（配置文件）
 rm -f ~/.config/opencode/AGENTS.md
@@ -50,14 +50,14 @@ rm -rf ~/.config/opencode/rules
 rm -f ~/.codex/AGENTS.md
 rm -f ~/.pi/agent/AGENTS.md
 
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.config/opencode/AGENTS.md
-ln -sf ~/projects/my-opencode-config/rules ~/.config/opencode/rules
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.codex/AGENTS.md
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.config/opencode/AGENTS.md
+ln -sf ~/projects/my-agents-config/rules ~/.config/opencode/rules
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.codex/AGENTS.md
 mkdir -p ~/.pi/agent
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.pi/agent/AGENTS.md
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.pi/agent/AGENTS.md
 
 # 4. 将自定义 skill 链接到 .agents/skills/
-ln -sf ~/projects/my-opencode-config/skills/* ~/.agents/skills/
+ln -sf ~/projects/my-agents-config/skills/* ~/.agents/skills/
 
 # 5. 验证
 ls -la ~/.config/opencode/ | grep -E "^l"
@@ -75,11 +75,11 @@ cp ~/.config/opencode/opencode.json ~/.config/opencode/opencode.json.backup
 cp ~/.codex/AGENTS.md ~/.codex/AGENTS.md.backup
 
 # 2. 创建项目目录并复制配置
-mkdir -p ~/projects/my-opencode-config
-cd ~/projects/my-opencode-config
+mkdir -p ~/projects/my-agents-config
+cd ~/projects/my-agents-config
 cp ~/.config/opencode/AGENTS.md ./
 [ -d ~/.config/opencode/rules ] && cp -r ~/.config/opencode/rules/ ./
-[ -d ~/projects/my-opencode-config/skills ] || mkdir -p skills
+[ -d ~/projects/my-agents-config/skills ] || mkdir -p skills
 
 # 3. 创建符号链接（配置文件）
 rm -f ~/.config/opencode/AGENTS.md
@@ -87,25 +87,25 @@ rm -rf ~/.config/opencode/rules
 rm -f ~/.codex/AGENTS.md
 rm -f ~/.pi/agent/AGENTS.md
 
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.config/opencode/AGENTS.md
-ln -sf ~/projects/my-opencode-config/rules ~/.config/opencode/rules
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.codex/AGENTS.md
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.config/opencode/AGENTS.md
+ln -sf ~/projects/my-agents-config/rules ~/.config/opencode/rules
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.codex/AGENTS.md
 mkdir -p ~/.pi/agent
-ln -sf ~/projects/my-opencode-config/AGENTS.md ~/.pi/agent/AGENTS.md
+ln -sf ~/projects/my-agents-config/AGENTS.md ~/.pi/agent/AGENTS.md
 
 # 4. 将自定义 skill 链接到 .agents/skills/
-ln -sf ~/projects/my-opencode-config/skills/* ~/.agents/skills/
+ln -sf ~/projects/my-agents-config/skills/* ~/.agents/skills/
 ```
 
 ### 场景 C：新增自定义全局 Skill
 
 ```bash
 # 1. 创建 skill 目录
-mkdir -p ~/projects/my-opencode-config/skills/<skill-name>
+mkdir -p ~/projects/my-agents-config/skills/<skill-name>
 # 2. 编辑 SKILL.md ...
 
 # 3. 同步到 .agents/skills/（OpenCode、Codex、pi 都会扫描，无需分别为每个 Agent 链接）
-ln -sf ~/projects/my-opencode-config/skills/* ~/.agents/skills/
+ln -sf ~/projects/my-agents-config/skills/* ~/.agents/skills/
 
 ```
 
